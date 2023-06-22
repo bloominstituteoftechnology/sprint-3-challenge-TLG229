@@ -45,8 +45,8 @@
     // ❗ Debug properly using the Console
 
     // 👉 CHALLENGE 1 - Integers
-    class Integers {
-      // 🧠 Constructor takes **any** number of arguments, which are integers
+
+     // 🧠 Constructor takes **any** number of arguments, which are integers
       // 🧠 Instances have an `ints` property which is an array holding the integers above in the same order
       // 🧠 Implement a `getAll` method which returns the data held in the `ints` property
       // 🧠 Implement a `getEvens` method which returns an array with the integers that are even
@@ -59,10 +59,121 @@
       // ❗ WARNING: except for `getAllReversed`, methods must respect the order of the integers
       // ❗ WARNING: note that none of the methods actually mutate the `ints` property
 
+
+    class Integers {
+      constructor (...ints){
+        this.ints = ints
+      }
+
+      getAll() {
+        return this.ints
+      }
+
+      getEvens() {
+        return this.ints.filter((nums) => nums % 2 === 0)
+      }
+
+     getNegatives () {
+      return this.ints.filter((nums) => nums < 0)
+     }
+
+     getAllSquared () {
+      return this.ints.map ((nums) => nums ** 2)
+     }
+
+     pop() {
+       const lastInt = this.ints.pop()
+       return lastInt
+     }
+
+     push(int) {
+      this.ints.push(int)
+      return this.ints
+     }
+
+     getEveryNth(n) {
+      const result = []
+      for (let i = 0; i < this.ints.length; i += n) {
+        result.push(this.ints[i])
+      }
+      return result
+    }
+
+      getAllReversed() {
+        return this.ints.slice().reverse()
+      }
+
     }
 
     // 👉 CHALLENGE 2 NerfGun
     class NerfGun {
+      constructor (totalProjectiles){
+          this.totalCapacity = totalProjectiles
+          this.currentCapacity = totalProjectiles
+          this.safetyOn = false
+    }
+
+    shoot() {
+      if (this.currentCapacity <1) {
+        return "Click!"
+      }
+
+      if (this.safetyOn) {
+        this.currentCapacity--
+        return "Bang!"
+      }else {
+        return "Click!"
+      }
+    }
+
+    reload (num) {
+      if (typeof num !== "number" || num <= 0) {
+        return "Error reloading!"
+      }
+
+      this.currentCapacity += num
+      if(this.currentCapacity > this.totalCapacity) {
+        this.currentCapacity = this.totalCapacity
+      }
+      return `${this.currentCapacity} projectiles left!`
+    }
+
+    toggleSafety() {
+      this.safetyOn = !this.safetyOn
+      if (this.safetyOn) {
+        return "Safety enabled!"
+      }else {
+        const result = [];
+        result.push("Safety disabled!")
+        result.push(this.shoot())
+        return result.join(" ")
+      }
+
+
+
+
+
+      /*}else {
+        if (this.currentCapacity <1) {
+          return "Safety disabled!"
+        }else {
+          return "Safety disabled!" `${this.safetyOn}`
+        }*/
+      }
+    
+    
+    
+    
+    
+    
+    
+        /*}else {
+        return "Safety disabled!"
+      }
+    }*/
+  
+  
+    
       // 🧠 Constructor takes one argument: the total number of projectiles supported by the instance
       // 🧠 New instances initialize fully loaded and with the safety on
       // 🧠 Instances have a `shoot` method that takes no arguments:
