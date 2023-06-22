@@ -117,39 +117,37 @@
       if (this.currentCapacity <1) {
         return "Click!"
       }
+  
 
-      if (!this.safetyOn) {
-        this.currentCapacity--
-        return "Bang!"
-      }else {
-        return "Click!"
-      }
-    }
+    return !this.safetyOn ? (--this.currentCapacity, "Bang!") : "Click!"
+  }
 
     reload (num) {
       if (typeof num !== "number" || num <= 0) {
         return "Error reloading!"
       }
 
-      this.currentCapacity += num
-      if(this.currentCapacity > this.totalCapacity) {
-        this.currentCapacity = this.totalCapacity
-      }
-      return `${this.currentCapacity} projectiles left!`
+    this.currentCapacity += num
+    if (this.currentCapacity > this.totalCapacity) {
+      this.currentCapacity = this.totalCapacity
     }
+    return `${this.currentCapacity} projectiles left!` 
+  }
 
     toggleSafety() {
       this.safetyOn = !this.safetyOn
       if (this.safetyOn) {
         return "Safety enabled!"
       }else {
-        const result = [];
-        result.push("Safety disabled!")
-        result.push(this.shoot())
-        return result.join(" ")
+      if (this.currentCapacity > 0) {
+        return "Safety disabled!"
+      }else {
+        return "Safety disabled! Click!"
       }
+      }
+    }
+  
       
-      }
       
   
       // 🧠 Constructor takes one argument: the total number of projectiles supported by the instance
