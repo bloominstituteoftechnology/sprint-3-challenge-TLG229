@@ -224,9 +224,9 @@ const workedCount = initialCount - remainingCount;
 
 
 if (workedCount === 0) {
-  return "No ants starting work!"
-} else {
   return `${initialCount} ants starting work!`
+} else {
+  return `${workedCount} ants starting work!`  //this one
 }
 } 
       feed(antName) {
