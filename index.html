@@ -110,7 +110,7 @@
       constructor (totalProjectiles){
           this.totalCapacity = totalProjectiles
           this.currentCapacity = totalProjectiles
-          this.safetyOn = false
+          this.safetyOn = true
     }
 
     shoot() {
@@ -118,7 +118,7 @@
         return "Click!"
       }
 
-      if (this.safetyOn) {
+      if (!this.safetyOn) {
         this.currentCapacity--
         return "Bang!"
       }else {
@@ -148,32 +148,10 @@
         result.push(this.shoot())
         return result.join(" ")
       }
-
-
-
-
-
-      /*}else {
-        if (this.currentCapacity <1) {
-          return "Safety disabled!"
-        }else {
-          return "Safety disabled!" `${this.safetyOn}`
-        }*/
+      
       }
-    
-    
-    
-    
-    
-    
-    
-        /*}else {
-        return "Safety disabled!"
-      }
-    }*/
+      
   
-  
-    
       // 🧠 Constructor takes one argument: the total number of projectiles supported by the instance
       // 🧠 New instances initialize fully loaded and with the safety on
       // 🧠 Instances have a `shoot` method that takes no arguments:
