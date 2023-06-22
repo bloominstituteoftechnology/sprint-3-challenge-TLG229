@@ -106,6 +106,20 @@
     }
 
     // 👉 CHALLENGE 2 NerfGun
+    // 🧠 Constructor takes one argument: the total number of projectiles supported by the instance
+      // 🧠 New instances initialize fully loaded and with the safety on
+      // 🧠 Instances have a `shoot` method that takes no arguments:
+      //      * If there is ammo left and safety is off, method consumes one projectile and returns the string "Bang!"
+      //      * Shooting on empty or with the safety on, returns the string "Click!"
+      // 🧠 Instances have a `reload` method that takes a number and tops up the instance by that number
+      //      * Reloading returns a string in the following format: "<number> projectiles left!"
+      //      * Reloading by more than capacity fills the instance to capacity
+      //      * Passing an argument which is not a number larger than zero returns the string "Error reloading!"
+      // 🧠 Instances have a `toggleSafety` method that takes no arguments and switches the state of the safety
+      //      * When engaging the safety, return "Safety enabled!"
+      //      * When disengaging the safety, return "Safety disabled!"
+      // 🌟 HINT: instances need to keep track of their maximum capacity as well as their current capacity
+
     class NerfGun {
       constructor (totalProjectiles){
           this.totalCapacity = totalProjectiles
@@ -128,13 +142,11 @@
       }
 
     this.currentCapacity += num
-    if (this.currentCapacity > this.totalCapacity) {
-      this.currentCapacity = this.totalCapacity
-    }
+    this.currentCapacity = this.currentCapacity > this.totalCapacity ? this.totalCapacity: this.currentCapacity
     return `${this.currentCapacity} projectiles left!` 
   }
 
-    toggleSafety() {
+  toggleSafety() {
       this.safetyOn = !this.safetyOn
       if (this.safetyOn) {
         return "Safety enabled!"
@@ -146,29 +158,10 @@
       }
       }
     }
-  
-      
-      
-  
-      // 🧠 Constructor takes one argument: the total number of projectiles supported by the instance
-      // 🧠 New instances initialize fully loaded and with the safety on
-      // 🧠 Instances have a `shoot` method that takes no arguments:
-      //      * If there is ammo left and safety is off, method consumes one projectile and returns the string "Bang!"
-      //      * Shooting on empty or with the safety on, returns the string "Click!"
-      // 🧠 Instances have a `reload` method that takes a number and tops up the instance by that number
-      //      * Reloading returns a string in the following format: "<number> projectiles left!"
-      //      * Reloading by more than capacity fills the instance to capacity
-      //      * Passing an argument which is not a number larger than zero returns the string "Error reloading!"
-      // 🧠 Instances have a `toggleSafety` method that takes no arguments and switches the state of the safety
-      //      * When engaging the safety, return "Safety enabled!"
-      //      * When disengaging the safety, return "Safety disabled!"
-      // 🌟 HINT: instances need to keep track of their maximum capacity as well as their current capacity
-
-    }
-
+  }
+    
     // 👉 CHALLENGE 3 EBook
-    class EBook {
-      // 🧠 Constructor takes two arguments:
+       // 🧠 Constructor takes two arguments:
       //      * First arg is a string with the whole text of the book
       //      * Second arg is the number of characters contained in a single page of the book
       // 🧠 Instances have a `next` method:
@@ -183,10 +176,66 @@
       // 🌟 HINT: remember about the `slice` method which strings and arrays have
       // ❗ Feel free to implement `back`, although this is not required nor graded
 
-    }
+    class EBook {
+      constructor(text, charPerPage){
+      this.text = text
+      this.charPerPage = charPerPage 
+      this.currentPage = 0
+      }  
 
+      next() {
+      const start = this.currentPage * this.charPerPage
+      const end = start + this.charPerPage
+
+      if (start >= this.text.length)
+      return null
+
+      const nextPage = this.text.slice(start, end)
+      this.currentPage++
+
+      return nextPage
+
+    }
+  }
+  
     // 👉 CHALLENGE 4 AntFarm
     class AntFarm {
+      constructor (...ants) {
+        this.ants = ants.map((name) => ({name: name, health: 100}))
+
+      }
+
+      work() {
+        if(this.ants.length === 0) {
+          return "No ants here.  Did you work them to death?"
+        }
+
+        this.ants.forEach(ant => {
+          if (ant.health <=0) {
+            return
+          }
+        ant.health -=20
+        if (ant.health <= 0) {
+          ant.health =0
+        } 
+      })
+
+      this.ants = this.ants.filter(ant => ant.health > 0)
+      return `${this.ants.length} ants starting work!`
+    }
+      
+      feed(antName) {
+        const antsFed = this.ants.filter((ant) => ant.name === antName)
+        if (antsFed.length === 0) {
+          return `${antName} not found!`
+        }
+
+        antsFed.forEach((ant) => {
+          ant.health +=15
+        })
+        return "Yum!"
+      }
+    }
       // 🧠 Constructor takes **any** number of arguments, which are strings: the names of your ants
       // 🧠 Instances of AntFarm have an `ants` property holding an array of ants:
       //      * Each ant is an object with a `name` prop and a `health` prop that starts at 100
@@ -218,7 +267,7 @@
       // 👉 HINT: if you are not feeling confident with map and filter, solve the problem with for loops,
       //      and with the piece of mind of all tests passing, refactor to use map/filter
 
-    }
+    
 
     // 🧪 TESTS, do not make any changes below this line ===================
     // 🧪 TESTS, do not make any changes below this line ===================
