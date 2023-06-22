@@ -201,36 +201,41 @@
     // 👉 CHALLENGE 4 AntFarm
     class AntFarm {
       constructor (...ants) {
-        this.ants = ants.map((name) => ({name: name, health: 100}))
-
+        this.ants = ants.map(name => ({name: name, health: 100}))
       }
-
       work() {
-        if(this.ants.length === 0) {
-          return "No ants here.  Did you work them to death?"
-        }
-
-        this.ants.forEach(ant => {
-          if (ant.health <=0) {
-            return
-          }
-        ant.health -=20
-        if (ant.health <= 0) {
-          ant.health =0
-        } 
-      })
-
-      this.ants = this.ants.filter(ant => ant.health > 0)
-      return `${this.ants.length} ants starting work!`
+    if (this.ants.length === 0) {
+      return "No ants here. Did you work them to death?"
     }
-      
+
+    const initialCount = this.ants.length;
+
+
+this.ants.forEach((ant) => {
+  ant.health -= 20;
+});
+
+
+this.ants = this.ants.filter((ant) => ant.health > 0);
+
+
+const remainingCount = this.ants.length;
+const workedCount = initialCount - remainingCount;
+
+
+if (workedCount === 0) {
+  return "No ants starting work!"
+} else {
+  return `${initialCount} ants starting work!`
+}
+} 
       feed(antName) {
-        const antsFed = this.ants.filter((ant) => ant.name === antName)
+        const antsFed = this.ants.filter(ant => ant.name === antName)
         if (antsFed.length === 0) {
           return `${antName} not found!`
         }
 
-        antsFed.forEach((ant) => {
+        antsFed.forEach(ant => {
           ant.health +=15
         })
         return "Yum!"
