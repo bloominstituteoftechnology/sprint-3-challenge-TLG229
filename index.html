@@ -210,23 +210,19 @@
 
     const initialCount = this.ants.length;
 
-
 this.ants.forEach((ant) => {
   ant.health -= 20;
 });
 
-
 this.ants = this.ants.filter((ant) => ant.health > 0);
-
 
 const remainingCount = this.ants.length;
 const workedCount = initialCount - remainingCount;
 
-
 if (workedCount === 0) {
   return `${initialCount} ants starting work!`
 } else {
-  return `${workedCount} ants starting work!`  //this one
+  return `${remainingCount} ants starting work!` 
 }
 } 
       feed(antName) {
