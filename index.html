@@ -199,44 +199,41 @@
   }
   
     // 👉 CHALLENGE 4 AntFarm
+   
+
     class AntFarm {
-      constructor (...ants) {
-        this.ants = ants.map(name => ({name: name, health: 100}))
-      }
-      work() {
-    if (this.ants.length === 0) {
-      return "No ants here. Did you work them to death?"
-    }
-
+  constructor(...ants) {
+    this.ants = ants.map(name => ({name, health: 100}))
+  }
+  
+  work() {
+    if (this.ants.length === 0) return "No ants here. Did you work them to death?"
+    
     const initialCount = this.ants.length;
-
-this.ants.forEach((ant) => {
-  ant.health -= 20;
-});
-
-this.ants = this.ants.filter((ant) => ant.health > 0);
-
-const remainingCount = this.ants.length;
-const workedCount = initialCount - remainingCount;
-
-if (workedCount === 0) {
-  return `${initialCount} ants starting work!`
-} else {
-  return `${remainingCount} ants starting work!` 
+    
+    this.ants = this.ants.map(ant => {
+      ant.health -= 20;
+      return ant;
+    });
+    
+    this.ants = this.ants.filter(ant => ant.health > 0);
+    
+    const remainingCount = this.ants.length;
+    const workedCount = initialCount - remainingCount;
+    
+    return `${initialCount} ants starting work!`;
+  }
+  
+  feed(antName) {
+    const antsFed = this.ants.filter(ant => ant.name === antName);
+    if (antsFed.length === 0) return `${antName} not found!`;
+    
+    antsFed.forEach(ant => ant.health += 15);
+    
+    return "Yum!";
+  }
 }
-} 
-      feed(antName) {
-        const antsFed = this.ants.filter(ant => ant.name === antName)
-        if (antsFed.length === 0) {
-          return `${antName} not found!`
-        }
 
-        antsFed.forEach(ant => {
-          ant.health +=15
-        })
-        return "Yum!"
-      }
-    }
       // 🧠 Constructor takes **any** number of arguments, which are strings: the names of your ants
       // 🧠 Instances of AntFarm have an `ants` property holding an array of ants:
       //      * Each ant is an object with a `name` prop and a `health` prop that starts at 100
